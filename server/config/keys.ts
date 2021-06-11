@@ -8,7 +8,7 @@ declare const process: {
   };
 };
 
-let envPath;
+let envPath: string;
 //Load env vars according to NODE_ENV
 switch (process.env.NODE_ENV) {
   case 'test':
@@ -29,9 +29,10 @@ export const GlobalSecrets = {
   MONGO_URI: env.MONGO_URI,
 };
 
-export const EquifaxSecrets = {
-  EQUIFAX_USER_ID: env.EQUIFAX_UID,
-  EQUIFAX_PWD: env.EQUIFAX_PWD,
-  EQUIFAX_MEMBER_NUMBER: env.EQUIFAX_MEMBER_NUMBER,
-  EQUIFAX_SECURITY_CODE: env.EQUIFAX_SECURITY_CODE,
-};
+/**
+ * Example ENV
+ * export const EquifaxSecrets = {
+ *    SECRET_NAME: env.SECRET_NAME
+ *    SECRET_NAME_2: env.SECRET_NAME_2 
+ * }
+*/

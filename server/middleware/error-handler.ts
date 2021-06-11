@@ -1,6 +1,7 @@
+import {Request, Response, NextFunction} from 'express';
 import ErrorResponse from '../utils/errorResponse';
 import { logger } from '../utils/logger';
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   let error = { ...err };
 
   error.message = err.message;
@@ -30,7 +31,7 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === 'ValidationError') {
     const message = Object.values(err.errors).map(
       (value: any) => value.message
-    );
+    ).join('/');
     error = new ErrorResponse(message, 400);
   }
 
@@ -38,7 +39,7 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === 'ValidationError') {
     const message = Object.values(err.errors).map(
       (value: any) => value.message
-    );
+    ).join('/');
     error = new ErrorResponse(message, 400);
   }
 

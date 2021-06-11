@@ -1,3 +1,4 @@
+// A convenience class to represent all errors
 class ErrorResponse extends Error {
   statusCode: number;
 
