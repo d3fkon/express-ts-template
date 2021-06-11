@@ -12,12 +12,12 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import path from 'path';
 import errorHandler from './middleware/error-handler';
-import dbConnect from './db/dbConnect';
 import { logger } from './utils/logger';
+import { Database } from './db/dbConnect';
 
 
 //Connect to mongoDB instance
-dbConnect();
+Database.connect();
 
 //Initializing express app object
 const app: Express = express();

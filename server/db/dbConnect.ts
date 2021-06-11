@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { logger } from '../utils/logger';
 import { GlobalSecrets } from '../config/keys';
 
-const dbConnect = async () => {
+const connect = async () => {
   try {
     let mongooseOptions = {
       useCreateIndex: true,
@@ -18,4 +18,6 @@ const dbConnect = async () => {
   }
 };
 
-export default dbConnect;
+export const Database = {
+  connect 
+}
