@@ -7,9 +7,6 @@ WORKDIR /app
 # So copy the built directories to the working directory
 COPY . /app/
 
-# TODO: To be removed
-RUN npm i tslib --global
-
 # Reaffirm that the PORT is 3000
 ENV PORT 3000
 
