@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  pre_build:
+    commands:
+      - echo "Installing Dependencies"
+      - rm package-lock.json
+      - npm install
+      - npm install tslib
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+  build:
+    commands:
+      - echo "=== Now Building ==="
+      - npm run build
+      - echo "=== Build Complete, Now building Image ==="
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - echo "=== Image Build Complete ==="
+  post_build:
+    commands:
+      - echo "=== Pushing Docker Image ==="
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
+      - cat imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json

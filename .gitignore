@@ -1,0 +1,11 @@
+/node_modules
+/.idea
+/.next
+/build
+/dist
+/logs
+*.log
+*.env
+tags
+tags.lock
+tags.temp
