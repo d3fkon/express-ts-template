@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 import { logger } from '../utils/logger';
-import { mongoUri } from '../config/keys';
+import { GlobalSecrets } from '../config/keys';
 
 const dbConnect = async () => {
   try {
@@ -11,7 +11,7 @@ const dbConnect = async () => {
       useUnifiedTopology: true,
       useFindAndModify: false,
     };
-    const conn = await mongoose.connect(mongoUri, mongooseOptions);
+    const conn = await mongoose.connect(GlobalSecrets.MONGO_URI, mongooseOptions);
     logger.info(`MongoDB connected: ${conn.connection.host}`);
   } catch (error) {
     logger.error(error.message);
